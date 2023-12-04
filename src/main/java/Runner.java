@@ -23,8 +23,9 @@ MiniProject: Book Management System
 
     public static void start(){
         Scanner input =new Scanner(System.in);
-
+        //create an instance of Service class to call the method
         BookService bookService= new BookService();
+        //step 8: use service object call the method from service class
         bookService.createTable();
         int select;
         do {
@@ -37,31 +38,37 @@ MiniProject: Book Management System
             System.out.println("4- Update Book ");
             System.out.println("5- Find Book by id ");
             System.out.println("0- exit");
-            System.out.println("Select your Activity");
+            System.out.println("Select your Activity: ");
+            System.out.println("------------------------------------");
             select=input.nextInt();
             input.nextLine();//consume new line
+
+            int id;
 
 
             switch (select){
                 case 1:
                     //register book
-                    System.out.println("save books");
+                    bookService.saveBook();
                     break;
                 case 2:
                     //Display all book
-                    System.out.println("Display books");
+                    bookService.getAllBooks();
                     break;
                 case 3:
-                    System.out.println("Delete books");
-                    //Delete book by Id:
+
+                    id = getBookId(input);
+                    bookService.deleteBookBydId(id);
                     break;
                 case 4:
-                    //Update book  By Id:
-                    System.out.println("Update books");
+                    id = getBookId(input);
+                    bookService.updateBook(id);
                     break;
                 case 5:
                     //Find book by id;
-                    System.out.println("Find  book By id");
+                    id = getBookId(input);
+                    Book book= bookService.getBookById(id);
+                    System.out.println(book);
                     break;
                 case 0:
                     //exist the App
@@ -74,5 +81,12 @@ MiniProject: Book Management System
 
         }while (select!=0);
 
+    }
+
+    private static int getBookId(Scanner inp){
+        System.out.println("Please Enter Book Id: ");
+        int id = inp.nextInt();
+        inp.nextLine();// new lice
+        return id;
     }
 }
